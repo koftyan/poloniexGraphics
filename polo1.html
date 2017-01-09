@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>
+		Price
+	</title>
+	<style type="text/css">
+		.axis path,
+		.axis line {
+		    fill: none;
+		    stroke: black;
+		    shape-rendering: crispEdges;
+		}
+
+		.axis text {
+		    font-family: sans-serif;
+		    font-size: 11px;
+		}
+
+		svg {
+			background: #efda32;
+			background: linear-gradient(to top, #a1c263, #466);
+		}
+	</style>
+	<link type="text/css" rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"></link>
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"
+	integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+	crossorigin="anonymous"></script>
+    <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+	integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+	crossorigin="anonymous"></script>
+</head>
+<body>
+	<script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+	<script type="text/javascript" src="./init.js"></script>
+	<script type="text/javascript" src="./scales.js"></script>
+	<script type="text/javascript" src='./settings.js'></script>
+	<script type="text/javascript">
+		var start_date, end_date;
+		start_date = "1405699200";
+		end_date = "9999999999";
+
+
+
+
+		// var url = "https://poloniex.com/public?command=returnChartData&currencyPair=USDT_BTC&start=" + start_date + "&end=" + end_date + "&period=86400";
+		// var volume = d3.xhr(url).get(draw_vol);
+		// var candels = d3.xhr(url).get(draw_cands);
+
+		function show() {
+			svg.selectAll("*").remove()
+			var url = "https://poloniex.com/public?command=returnChartData&currencyPair=USDT_BTC&start=" + start_date + "&end=" + end_date + "&period=86400";
+			d3.xhr(url).get(draw_vol);
+			d3.xhr(url).get(draw_cands);			
+		}
+	</script>
+	
+	<form>
+		<div class="ui-widget">
+			<label for="start_date">Start: </label><input id="start_date"/>
+			<label for="end_date">End: </label><input id="end_date"/>
+			<input type="button" id="submit" value="Go" onclick="show()"/>
+		</div>
+	</form>
+
+	<script type="text/javascript">
+		$("#start_date").datepicker({
+			onSelect: function()
+			{ 
+				start_date = $(this).datepicker('getDate').getTime() / 1000;
+				console.log(start_date);
+			}
+		});
+		$("#end_date").datepicker({
+			onSelect: function() {
+				end_date = $(this).datepicker("getDate").getTime() / 1000;
+				console.log(end_date);		
+			}
+		});
+		
+	</script>
+</body>
+</html>
