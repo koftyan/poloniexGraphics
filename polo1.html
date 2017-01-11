@@ -41,7 +41,9 @@
 		start_date = "1405699200";
 		end_date = "9999999999";
 
-
+		var url = "https://poloniex.com/public?command=returnChartData&currencyPair=USDT_BTC&start=" + start_date + "&end=" + end_date + "&period=86400";
+		d3.xhr(url).get(draw_vol);
+		d3.xhr(url).get(draw_cands);
 
 
 		// var url = "https://poloniex.com/public?command=returnChartData&currencyPair=USDT_BTC&start=" + start_date + "&end=" + end_date + "&period=86400";
